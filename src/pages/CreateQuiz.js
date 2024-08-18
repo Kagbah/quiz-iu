@@ -241,7 +241,7 @@ const CreateQuiz = () => {
 
   return (
     <div className="create-quiz-container">
-      <h2>Quiz erstellen</h2>
+      <h2>Quiz Manager</h2>
       <div className="section-container" ref={formRef}>
         <form onSubmit={handleAddCategory}>
           <div className="category-section">
