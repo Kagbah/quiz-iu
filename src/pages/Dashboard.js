@@ -48,7 +48,7 @@ const Dashboard = () => {
 
         <div className="dashboard-sections">
           <div className="section">
-            <h4>Fragenkategorien</h4>
+            <h4>Beliebte Fragenkategorien</h4>
             {categories.length > 0 ? (
               <div className="category-buttons">
                 {categories.map((category, index) => (

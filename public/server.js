@@ -22,6 +22,26 @@ app.use(bodyParser.json());
 // Middleware zum Verarbeiten von Datei-Uploads
 const upload = multer({ dest: 'uploads/' });
 
+
+
+// Middleware zum Überprüfen des Tokens
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+
+  if (!token) {
+    return res.status(401).json({ error: 'Nicht autorisiert' });
+  }
+
+  jwt.verify(token, SECRET_KEY, (err, user) => {
+    if (err) {
+      return res.status(403).json({ error: 'Ungültiger Token' });
+    }
+    req.user = user;
+    next();
+  });
+}
+
 function checkAdmin(req, res, next) {
   const authHeader = req.headers['authorization'];
 
@@ -286,56 +306,50 @@ app.post('/upload-questions', upload.single('file'), async (req, res) => {
 
 // server.js
 
-// Route zum Abrufen der Profildaten
-app.get('/profile', async (req, res) => {
-  const token = req.headers['authorization'];
-
-  if (!token) {
-    return res.status(401).json({ error: 'Nicht autorisiert' });
-  }
-
+// Route zum Abrufen des Profils
+app.get('/profile', authenticateToken, async (req, res) => {
   try {
-    const [users] = await pool.query('SELECT name, email FROM users WHERE email = ?', [req.email]);
-    if (users.length === 0) {
-      return res.status(404).json({ error: 'Benutzer nicht gefunden.' });
+    const [user] = await pool.query('SELECT name, email FROM users WHERE email = ?', [req.user.email]);
+    if (user.length === 0) {
+      return res.status(404).json({ error: 'Benutzer nicht gefunden' });
     }
-
-    res.json(users[0]);
+    res.json(user[0]);
   } catch (error) {
     console.error('Fehler beim Abrufen des Profils:', error);
-    res.status(500).json({ error: 'Fehler beim Abrufen des Profils.' });
+    res.status(500).json({ error: 'Fehler beim Abrufen des Profils' });
   }
 });
-  
-// server.js
 
-// Route zum Aktualisieren der Profildaten inklusive Passwortänderung
-app.post('/profile', async (req, res) => {
-  const { name, email, currentPassword, newPassword } = req.body;
-  const token = req.headers['authorization'];
-
-  if (!token) {
-    return res.status(401).json({ error: 'Nicht autorisiert' });
-  }
+// Route zum Aktualisieren des Profils
+app.post('/profile', authenticateToken, async (req, res) => {
+  const { name, currentPassword, newPassword } = req.body;
 
   try {
-    const [users] = await pool.query('SELECT password FROM users WHERE email = ?', [email]);
+    const [users] = await pool.query('SELECT password FROM users WHERE email = ?', [req.user.email]);
     if (users.length === 0) {
-      return res.status(404).json({ error: 'Benutzer nicht gefunden.' });
+      return res.status(404).json({ error: 'Benutzer nicht gefunden' });
     }
 
-    if (users[0].password !== currentPassword) {
-      return res.status(400).json({ error: 'Aktuelles Passwort ist falsch.' });
+    const user = users[0];
+
+    // Überprüfe das aktuelle Passwort, wenn ein neues Passwort gesetzt werden soll
+    if (newPassword) {
+      if (user.password !== currentPassword) {
+        return res.status(400).json({ error: 'Aktuelles Passwort ist falsch' });
+      }
+
+      await pool.query('UPDATE users SET password = ? WHERE email = ?', [newPassword, req.user.email]);
     }
 
-    const updatedPassword = newPassword ? newPassword : users[0].password;
+    // Aktualisiere den Nickname (Name)
+    if (name) {
+      await pool.query('UPDATE users SET name = ? WHERE email = ?', [name, req.user.email]);
+    }
 
-    await pool.query('UPDATE users SET password = ? WHERE email = ?', [updatedPassword, email]);
-
-    res.status(200).json({ message: 'Profil erfolgreich aktualisiert.' });
+    res.json({ message: 'Profil erfolgreich aktualisiert' });
   } catch (error) {
     console.error('Fehler beim Aktualisieren des Profils:', error);
-    res.status(500).json({ error: 'Fehler beim Aktualisieren des Profils.' });
+    res.status(500).json({ error: 'Fehler beim Aktualisieren des Profils' });
   }
 });
 
