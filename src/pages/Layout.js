@@ -20,8 +20,8 @@ const Layout = () => {
         <h2>Navigation</h2>
         <ul>
           <li onClick={() => navigate('/dashboard')}>Dashboard</li>
-          <li onClick={() => navigate('/create-quiz')}>Quiz erstellen</li>
-          <li onClick={() => navigate('/play-quiz')}>Quiz Manager</li>
+          <li onClick={() => navigate('/create-quiz')}>Quiz Manager</li>
+          <li onClick={() => navigate('/play-quiz')}>Quiz spielen</li>
           <li onClick={() => navigate('/profile')}>Profil verwalten</li>
           {role === 'admin' && (
             <li onClick={() => navigate('/admin-dashboard')}>Admin-Dashboard</li>

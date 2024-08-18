@@ -385,6 +385,11 @@ const CreateQuiz = () => {
               <p>Keine Fragen in dieser Kategorie hinzugefügt.</p>
             )}
           </div>
+          <button className="scroll-to-top-button" onClick={() => {
+              formRef.current.scrollIntoView({ behavior: 'smooth' })
+           }}>
+            ⬆
+          </button>
         </>
       )}
     </div>
