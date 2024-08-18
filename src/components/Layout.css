@@ -1,0 +1,45 @@
+/* src/components/Layout.css */
+
+.layout-container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .layout-nav {
+    width: 250px;
+    background-color: #2c3e50;
+    padding: 20px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .layout-nav h2 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .layout-nav ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .layout-nav li {
+    margin: 20px 0;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background 0.3s;
+  }
+  
+  .layout-nav li:hover {
+    background-color: #34495e;
+  }
+  
+  .layout-content {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #ecf0f1;
+    overflow-y: auto;
+  }
