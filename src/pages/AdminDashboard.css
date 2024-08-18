@@ -1,0 +1,61 @@
+.admin-dashboard {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.admin-section {
+  margin-bottom: 30px;
+}
+
+.admin-list {
+  list-style: none;
+  padding: 0;
+}
+
+.admin-list-item {
+  background-color: #f9f9f9;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.admin-list-info {
+  margin-bottom: 10px;
+}
+
+.admin-list-info h4 {
+  margin-top: 0;
+  color: #333;
+}
+
+.admin-list-actions {
+  margin-top: 15px;
+}
+
+.admin-list-actions button {
+  margin-right: 10px;
+}
+
+.questions-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.question-item {
+  background-color: #ffffff;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.question-item p {
+  margin: 5px 0;
+}
+
+strong {
+  color: #555;
+}
