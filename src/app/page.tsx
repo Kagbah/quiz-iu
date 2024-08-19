@@ -1,3 +1,4 @@
+export const runtime = 'edge';
 import AuthButton from "@/components/AuthButton";
 import { createClient } from "@/utils/supabase/server";
 import Header from "@/components/Header";
