@@ -26,8 +26,8 @@ export const Icons = {
           fy="0%"
           gradientUnits="objectBoundingBox"
         >
-          <stop stop-color="#0F172A"></stop>
-          <stop offset="1" stop-color="#131308"></stop>
+          <stop stopColor="#0F172A"></stop>
+          <stop offset="1" stopColor="#131308"></stop>
         </radialGradient>
         <radialGradient
           id="rb"
@@ -37,8 +37,8 @@ export const Icons = {
           gradientUnits="userSpaceOnUse"
           gradientTransform="translate(256) rotate(90) scale(512)"
         >
-          <stop stop-color="white"></stop>
-          <stop offset="1" stop-color="white" stop-opacity="0"></stop>
+          <stop stopColor="white"></stop>
+          <stop offset="1" stopColor="white" stopOpacity="0"></stop>
         </radialGradient>
       </defs>
       <svg
