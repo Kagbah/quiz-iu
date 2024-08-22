@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { UserAuthForm } from "@/components/user-auth-form-sign-up";
 import { Logo } from "@/components/Logo";
+import { ErrorMessage } from "@/components/ErrorMessage";
 
 export const metadata: Metadata = {
   title: "Authentication",
@@ -45,6 +46,7 @@ export default function AuthenticationPage() {
               </p>
             </div>
           </div>
+          <ErrorMessage></ErrorMessage>
         </div>
       </div>
     </>

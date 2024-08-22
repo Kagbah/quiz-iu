@@ -6,6 +6,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { UserAuthForm } from "@/components/user-auth-form-login";
 import { Icons } from "@/components/ui/icons";
 import { Logo } from "@/components/Logo";
+import { ErrorMessage } from "@/components/ErrorMessage";
 
 export const metadata: Metadata = {
   title: "Authentication",
@@ -20,7 +21,9 @@ export default function AuthenticationPage() {
         style={{ backgroundImage: "url('/media/bg-img.png')" }}
       >
         <div className="container relative hidden h-[800px] flex-col items-center justify-center md:flex lg:px-0">
-          <Logo />
+          <div className="absolute right-4 top-4 md:right-8 md:top-8">
+            <Logo />
+          </div>
           <div className="lg:p-8 border border-input rounded-lg bg-background drop-shadow-md">
             <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
               <div className="flex flex-col space-y-2 text-center">
@@ -40,10 +43,11 @@ export default function AuthenticationPage() {
                 >
                   Registrier dich
                 </Link>{" "}
-                jetzt und beginn mit dem Lernen!
+                jetzt und beginn mit dem Lernen.
               </p>
             </div>
           </div>
+          <ErrorMessage />
         </div>
       </div>
     </>
