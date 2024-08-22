@@ -1,6 +1,7 @@
 export const runtime = "edge";
 import AuthButton from "@/components/AuthButton";
 import Header from "@/components/Header";
+import Link from "next/link";
 
 export default async function Index() {
   return (
@@ -16,17 +17,12 @@ export default async function Index() {
       </div>
 
       <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
-        <p>
-          Powered by{" "}
-          <a
-            href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-            target="_blank"
-            className="font-bold hover:underline"
-            rel="noreferrer"
-          >
-            Supabase
-          </a>
-        </p>
+        <div className="flex justify-evenly text-sm text-muted-foreground gap-8">
+          <Link href="#">Datenschutz</Link>
+          <Link href="#">Impressum</Link>
+          <Link href="#">Hilfe</Link>
+          <Link href="#">Login für Admins</Link>
+        </div>
       </footer>
     </div>
   );
