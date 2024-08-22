@@ -1,6 +1,6 @@
 export const runtime = "edge";
 import AuthButton from "@/components/AuthButton";
-import Header from "@/components/Header";
+import Header from "@/components/HeaderLanding";
 import Link from "next/link";
 
 export default async function Index() {

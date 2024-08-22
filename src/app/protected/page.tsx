@@ -1,8 +1,8 @@
 export const runtime = "edge";
 import AuthButton from "@/components/AuthButton";
 import { createClient } from "@/utils/supabase/server";
-import Header from "@/components/Header";
 import { redirect } from "next/navigation";
+import Header from "@/components/HeaderLoggedIn";
 
 export default async function ProtectedPage() {
   const supabase = createClient();
