@@ -3,23 +3,14 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import { Icons } from "@/components/ui/icons";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { SubmitButton } from "@/components/submit-button";
 import { signIn } from "@/components/user-auth-form-server";
-import { useSearchParams } from "next/navigation";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
-  const searchParams = useSearchParams();
-  const message = searchParams.get("message");
-  let nachricht;
-  if (message == "invalid-credentials") {
-    nachricht = "test";
-  }
-
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   async function onSubmit(event: React.SyntheticEvent) {
@@ -74,7 +65,6 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
           </SubmitButton>
         </div>
       </form>
-      <div>{nachricht}</div>
     </div>
   );
 }
