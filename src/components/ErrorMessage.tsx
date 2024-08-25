@@ -9,7 +9,7 @@ export function ErrorMessage() {
 
   if (message === "invalid-credentials") {
     nachricht = "Die Kombination aus E-Mail und Passwort ist ungültig.";
-  } else if (message === "email-already-exists") {
+  } else if (message === "user-already-exists") {
     nachricht =
       "Diese E-Mail-Adresse ist bereits registriert. Bitte melden Sie sich an oder verwenden Sie eine andere E-Mail-Adresse.";
   } else if (message === "check-email") {
