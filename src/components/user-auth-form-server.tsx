@@ -20,7 +20,7 @@ export async function signIn(formData: FormData) {
     }
     return redirect("/login?message=generic");
   }
-  return redirect("/protected");
+  return redirect("/dashboard");
 }
 
 export async function signUp(formData: FormData) {
