@@ -6,7 +6,8 @@ export function Footer() {
       <div className="flex justify-evenly text-sm text-muted-foreground gap-8">
         <Link href="#">Datenschutz</Link>
         <Link href="#">Impressum</Link>
-        <Link href="#">Hilfe</Link>
+        <Link href="/help">Hilfe</Link>
+        <Link href="/admin-login">Login für Admins</Link>
       </div>
     </footer>
   );
