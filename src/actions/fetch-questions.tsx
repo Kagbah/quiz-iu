@@ -15,6 +15,7 @@ type Question = {
   updatedBy: string | null;
 };
 
+
 export const fetchQuestions = async (categoryId: number): Promise<Question[]> => {
   const supabase = createClient();
 

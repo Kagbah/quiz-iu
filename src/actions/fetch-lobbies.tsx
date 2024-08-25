@@ -14,7 +14,7 @@ export const fetchLobbies = async () => {
 
     return data || [];
   } catch (error) {
-    console.error('Fehler beim Laden der Lobbies:', error);
+    console.error('Fehler beim Laden der Lobbie:', error);
     return [];
   }
 };
