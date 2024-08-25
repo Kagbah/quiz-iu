@@ -1,5 +1,3 @@
-import NextLogo from "./NextLogo";
-import SupabaseLogo from "./SupabaseLogo";
 import { Button } from "@/components/ui/button";
 
 export default function Header() {
