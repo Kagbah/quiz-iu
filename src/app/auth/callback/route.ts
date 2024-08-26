@@ -13,8 +13,17 @@ export async function GET(request: Request) {
   if (code) {
     const supabase = createClient();
     await supabase.auth.exchangeCodeForSession(code);
+
+    const { error } = await supabase.from("user_role").insert({
+      user_id: (await supabase.auth.getUser()).data.user?.id,
+      role_id: 1, // User
+    });
+
+    if (error) {
+      return NextResponse.redirect(`${origin}/login?message=generic`);
+    }
   }
 
   // URL to redirect to after sign up process completes
-  return NextResponse.redirect(`${origin}/protected`);
+  return NextResponse.redirect(`${origin}/dashboard`);
 }
