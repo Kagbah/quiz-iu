@@ -1,16 +1,24 @@
 "use client";
+import { createClient } from "@/utils/supabase/client";
+import SidebarAdmin from "./SidebarAdmin";
+import SidebarUser from "./SidebarUser";
 
-import { Avatar } from "@/components/ui/avatar";
+export default async function Sidebar() {
+  const supabase = createClient();
 
-export default function Sidebar() {
-  return (
-    <div className="flex flex-col w-[300px] border-r border-border min-h-screen p-4">
-      <div>Play</div>
-      <div className="grow">Menu</div>
-      <div>Settings</div>
-      <div>
-        <Avatar></Avatar>
-      </div>
-    </div>
-  );
+  const { data, error } = await supabase
+    .from("user_role")
+    .select(
+      `
+      role (description)
+      `
+    )
+    .eq("user_id", (await supabase.auth.getUser()).data.user?.id)
+    .limit(1)
+    .single();
+
+  const role = data?.role.description!;
+
+  console.log(data, error);
+  return role == "admin" ? <SidebarAdmin /> : <SidebarUser />;
 }
