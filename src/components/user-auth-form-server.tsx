@@ -35,8 +35,8 @@ export async function signUp(formData: FormData) {
       emailRedirectTo: `${origin}/auth/callback`,
     },
   });
+
   if (error) {
-    console.log(error);
     if (error.code == "over_email_send_rate_limit" && error.status === 429) {
       return redirect("/login?message=rate-limit");
     }
