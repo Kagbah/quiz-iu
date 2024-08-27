@@ -1,4 +1,4 @@
-import { createClient } from "@/utils/supabase/client";
+import { createClient } from "@/utils/supabase/server";
 import Sidebar from "./Sidebar";
 
 export default async function ServerSidebar() {
