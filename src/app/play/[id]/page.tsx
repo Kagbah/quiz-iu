@@ -40,7 +40,7 @@ export default async function PlayPage({ params }: { params: { id: string } }) {
     .select()
     .eq("user_id", user.id)
     .eq("lobbies_id", lobby.id)
-    .single();
+    .maybeSingle();
 
   // If user is not in lobby, add them
   if (!userInLobby && !userInLobbyError) {
