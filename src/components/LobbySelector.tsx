@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
 import { createClient } from "@/utils/supabase/client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Tables } from "@/types/database.types";
 
-let lobbiesType: Tables<'lobbies'>;
+let lobbiesType: Tables<"lobbies">;
 
 export default function LobbySelector() {
   const supabase = createClient();
@@ -13,7 +13,10 @@ export default function LobbySelector() {
   const [lobbies, setLobbies] = useState<Array<typeof lobbiesType>>([]);
 
   const fetchLobbies = async () => {
-    const { data, error } = await supabase.from('lobbies').select('*').eq('private', false);
+    const { data, error } = await supabase
+      .from("lobbies")
+      .select("*")
+      .eq("private", false);
     console.log(data);
     console.error(error);
     if (error) {
@@ -26,28 +29,30 @@ export default function LobbySelector() {
   useEffect(() => {
     fetchLobbies();
   }, []);
-   
+
   supabase
-    .channel('schema-db-changes')
+    .channel("schema-db-changes")
     .on(
-      'postgres_changes',
+      "postgres_changes",
       {
-        event: '*',
-        schema: 'public',
-        table: 'lobbies'
+        event: "*",
+        schema: "public",
+        table: "lobbies",
       },
       (payload) => {
-        if (payload.eventType === 'DELETE') {
+        if (payload.eventType === "DELETE") {
           setLobbies(lobbies.filter((lobby) => lobby.id !== payload.old.id));
           return;
         }
         if (payload.eventType === "UPDATE") {
-          setLobbies(lobbies.map((lobby) => {
-            if (lobby.id === payload.new.id) {
-              return payload.new as typeof lobbiesType;
-            }
-            return lobby;
-          }));
+          setLobbies(
+            lobbies.map((lobby) => {
+              if (lobby.id === payload.new.id) {
+                return payload.new as typeof lobbiesType;
+              }
+              return lobby;
+            })
+          );
           return;
         }
         if (payload.eventType === "INSERT") {
@@ -59,14 +64,18 @@ export default function LobbySelector() {
         }
       }
     )
-    .subscribe()
+    .subscribe();
 
   return (
     <div>
-      <h1>Lobby Selector</h1>
+      <h1 className="font-bold text-3xl text-foreground">Lobby erstellen</h1>
       <ul>
         {lobbies.map((lobby) => (
-          <li key={lobby.id}><Link href={`/join/${lobby.id}`}>{lobby.name} | 0/{lobby.maxPlayers}</Link></li>
+          <li key={lobby.id}>
+            <Link href={`/join/${lobby.id}`}>
+              {lobby.name} | 0/{lobby.maxPlayers}
+            </Link>
+          </li>
         ))}
       </ul>
     </div>

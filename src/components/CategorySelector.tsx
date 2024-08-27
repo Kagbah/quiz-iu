@@ -1,9 +1,9 @@
 "use client";
 
-import React from 'react';
+import React from "react";
 import { Tables } from "@/types/database.types";
 
-let categoriesType: Tables<'categories'>;
+let categoriesType: Tables<"categories">;
 
 type Props = {
   categories: Array<typeof categoriesType>;
@@ -11,14 +11,19 @@ type Props = {
   onCategoryChange: (category: typeof categoriesType) => void;
 };
 
-export function CategorySelector({ categories, selectedCategory, onCategoryChange }: Props) {
-
+export function CategorySelector({
+  categories,
+  selectedCategory,
+  onCategoryChange,
+}: Props) {
   return (
     <div className="input-group">
       <label>Kategorie auswählen</label>
       <select
-        value={selectedCategory?.name || ''}
-        onChange={(e) => onCategoryChange(categories.find(el => el.name === e.target.value)!)}
+        value={selectedCategory?.name || ""}
+        onChange={(e) =>
+          onCategoryChange(categories.find((el) => el.name === e.target.value)!)
+        }
       >
         <option value="">Kategorie wählen</option>
         {categories.map((category, index) => (
