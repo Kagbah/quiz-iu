@@ -32,24 +32,57 @@ export type Database = {
       }
       lobbies: {
         Row: {
+          createdBy: string
           id: number
           maxPlayers: number
           name: string
           private: boolean
         }
         Insert: {
+          createdBy?: string
           id?: number
           maxPlayers?: number
           name: string
           private?: boolean
         }
         Update: {
+          createdBy?: string
           id?: number
           maxPlayers?: number
           name?: string
           private?: boolean
         }
         Relationships: []
+      }
+      lobbies_user: {
+        Row: {
+          lobbies_id: number
+          user_id: string
+        }
+        Insert: {
+          lobbies_id: number
+          user_id: string
+        }
+        Update: {
+          lobbies_id?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lobbies_user_lobbies_id_fkey"
+            columns: ["lobbies_id"]
+            isOneToOne: false
+            referencedRelation: "lobbies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lobbies_user_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       questions: {
         Row: {
@@ -138,7 +171,7 @@ export type Database = {
             foreignKeyName: "user_role_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
-            referencedRelation: "identities"
+            referencedRelation: "users"
             referencedColumns: ["id"]
           },
         ]
