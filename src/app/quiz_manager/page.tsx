@@ -1,14 +1,10 @@
 export const runtime = "edge";
-import AuthButton from "@/components/AuthButton";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import Header from "@/components/HeaderLoggedIn";
-import { Footer } from "@/components/Footer";
-import React from 'react';
+import React from "react";
 import CategoryManagement from "@/components/QuizManagement";
 // import './CreateQuiz.css';
 import QuizManagement from "@/components/QuizManagement";
-
 
 export default async function ProtectedPage() {
   const supabase = createClient();
@@ -23,19 +19,11 @@ export default async function ProtectedPage() {
 
   return (
     <div className="flex-1 w-full flex flex-col gap-20 items-center">
-      <div className="w-full">
-        <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-          <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm">
-            <AuthButton />
-          </div>
-        </nav>
+      <div className="flex-1 flex flex-col gap-8 max-w-4xl px-3 justify-center">
+        {" "}
+        <h2 className="font-bold text-3xl text-foreground">Quiz erstellen</h2>
+        <CategoryManagement />
       </div>
-      <CategoryManagement/>
-      <div className="flex-1 flex flex-col gap-20 max-w-4xl px-3">
-        <Header />
-      </div>
-      <Footer />
     </div>
   );
 }
-
