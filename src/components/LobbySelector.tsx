@@ -1,27 +1,34 @@
 "use client";
 
+import { Tables } from "@/types/database.types";
 import { createClient } from "@/utils/supabase/client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Tables } from "@/types/database.types";
 
-let lobbiesType: Tables<"lobbies">;
+type Lobby = Tables<"lobbies"> & {
+  connectedPlayers: Array<{ count: number }>;
+};
 
 export default function LobbySelector() {
   const supabase = createClient();
 
-  const [lobbies, setLobbies] = useState<Array<typeof lobbiesType>>([]);
+  const [lobbies, setLobbies] = useState<Array<Lobby>>([]);
 
   const fetchLobbies = async () => {
     const { data, error } = await supabase
       .from("lobbies")
-      .select("*")
-      .eq("private", false);
-    console.log(data);
-    console.error(error);
+      .select(
+        `
+      *,
+      connectedPlayers:lobbies_user(count)
+    `
+      )
+      .eq("private", false)
+      .returns<Lobby[]>();
     if (error) {
       console.error(error);
     } else {
+      console.log(data);
       setLobbies(data);
     }
   };
@@ -31,7 +38,7 @@ export default function LobbySelector() {
   }, []);
 
   supabase
-    .channel("schema-db-changes")
+    .channel("lobbies-changes")
     .on(
       "postgres_changes",
       {
@@ -48,7 +55,7 @@ export default function LobbySelector() {
           setLobbies(
             lobbies.map((lobby) => {
               if (lobby.id === payload.new.id) {
-                return payload.new as typeof lobbiesType;
+                return payload.new as Lobby;
               }
               return lobby;
             })
@@ -56,10 +63,60 @@ export default function LobbySelector() {
           return;
         }
         if (payload.eventType === "INSERT") {
-          const newLobby = payload.new as typeof lobbiesType;
+          const newLobby = payload.new as Lobby;
           if (!newLobby.private) {
             setLobbies([...lobbies, newLobby]);
           }
+          return;
+        }
+      }
+    )
+    .subscribe();
+
+  supabase
+    .channel("lobbies-user-changes")
+    .on(
+      "postgres_changes",
+      {
+        event: "*",
+        schema: "public",
+        table: "lobbies_user",
+      },
+      (payload) => {
+        if (payload.eventType === "DELETE") {
+          setLobbies(
+            lobbies.map((lobby) => {
+              if (lobby.id === payload.old.lobbies_id) {
+                return {
+                  ...lobby,
+                  connectedPlayers: [
+                    {
+                      count: lobby.connectedPlayers[0].count - 1,
+                    },
+                  ],
+                };
+              }
+              return lobby;
+            })
+          );
+          return;
+        }
+        if (payload.eventType === "INSERT") {
+          setLobbies(
+            lobbies.map((lobby) => {
+              if (lobby.id === payload.new.lobbies_id) {
+                return {
+                  ...lobby,
+                  connectedPlayers: [
+                    {
+                      count: lobby.connectedPlayers[0].count + 1,
+                    },
+                  ],
+                };
+              }
+              return lobby;
+            })
+          );
           return;
         }
       }
@@ -70,13 +127,25 @@ export default function LobbySelector() {
     <div>
       <h1 className="font-bold text-3xl text-foreground">Lobby erstellen</h1>
       <ul>
-        {lobbies.map((lobby) => (
-          <li key={lobby.id}>
-            <Link href={`/join/${lobby.id}`}>
-              {lobby.name} | 0/{lobby.maxPlayers}
-            </Link>
-          </li>
-        ))}
+        {lobbies.map((lobby) => {
+          const isLobbyFull =
+            lobby.connectedPlayers[0].count >= lobby.maxPlayers;
+          return (
+            <li key={lobby.id}>
+              {isLobbyFull ? (
+                <span className="disabled-link">
+                  {lobby.name} | {lobby.connectedPlayers[0].count}/
+                  {lobby.maxPlayers}
+                </span>
+              ) : (
+                <Link href={`/play/${lobby.id}`}>
+                  {lobby.name} | {lobby.connectedPlayers[0].count}/
+                  {lobby.maxPlayers}
+                </Link>
+              )}
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

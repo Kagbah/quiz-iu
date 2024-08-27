@@ -1,15 +1,10 @@
 export const runtime = "edge";
 
-import AuthButton from "@/components/AuthButton";
+import LeaveLobbyButton from "@/components/LeaveLobbyButton";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import Header from "@/components/HeaderLoggedIn";
-import { Footer } from "@/components/Footer";
-import React from 'react';
-// import './CreateQuiz.css';
 
-
-export default async function ProtectedPage() {
+export default async function PlayPage({ params }: { params: { id: string } }) {
   const supabase = createClient();
 
   const {
@@ -20,21 +15,50 @@ export default async function ProtectedPage() {
     return redirect("/login");
   }
 
+  const lobbyId = params.id;
+
+  // Fetch lobby data
+  const { data: lobby, error: lobbyError } = await supabase
+    .from("lobbies")
+    .select("*, connectedPlayers:lobbies_user(count)")
+    .eq("id", lobbyId)
+    .limit(1)
+    .single();
+
+  if (lobbyError || !lobby) {
+    return redirect("/play?message=lobby-not-found");
+  }
+
+  // Check if lobby is full
+  if (lobby.maxPlayers <= lobby.connectedPlayers[0].count) {
+    return redirect("/play?message=lobby-full");
+  }
+
+  // Check if user is already in lobby
+  const { data: userInLobby, error: userInLobbyError } = await supabase
+    .from("lobbies_user")
+    .select()
+    .eq("user_id", user.id)
+    .eq("lobbies_id", lobby.id)
+    .single();
+
+  // If user is not in lobby, add them
+  if (!userInLobby && !userInLobbyError) {
+    const { error: insertError } = await supabase
+      .from("lobbies_user")
+      .insert({ user_id: user.id, lobbies_id: lobby.id });
+
+    if (insertError) {
+      console.error("Error adding user to lobby:", insertError);
+    }
+  }
+
   return (
     <div className="flex-1 w-full flex flex-col gap-20 items-center">
-      <div className="w-full">
-        <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-          <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm">
-            <AuthButton />
-          </div>
-        </nav>
-      </div>
-      
-      <div className="flex-1 flex flex-col gap-20 max-w-4xl px-3">
-        <Header />
-      </div>
-      <Footer />
+      <h1 className="text-4xl font-bold text-center">{lobby.name}</h1>
+      <span>Test</span>
+      <br />
+      <LeaveLobbyButton userId={user.id} />
     </div>
   );
 }
-

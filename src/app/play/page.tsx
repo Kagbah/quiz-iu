@@ -1,13 +1,9 @@
 export const runtime = "edge";
 
-import AuthButton from "@/components/AuthButton";
+import LobbyCreator from "@/components/LobbyCreator";
+import LobbySelector from "@/components/LobbySelector";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import Header from "@/components/HeaderLoggedIn";
-import { Footer } from "@/components/Footer";
-import React from "react";
-import LobbySelector from "@/components/LobbySelector";
-import LobbyCreator from "@/components/LobbyCreator";
 
 export default async function ProtectedPage() {
   const supabase = createClient();
@@ -18,6 +14,15 @@ export default async function ProtectedPage() {
 
   if (!user) {
     return redirect("/login");
+  }
+
+  const { data, error } = await supabase
+    .from("lobbies_user")
+    .select()
+    .eq("user_id", user.id);
+
+  if (data && data.length > 0) {
+    return redirect("/play/" + data[0].lobbies_id);
   }
 
   return (
