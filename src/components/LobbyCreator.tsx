@@ -1,10 +1,10 @@
 "use client";
 
 import { createClient } from "@/utils/supabase/client";
+import { useRouter } from "next/navigation";
+import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
-import { Button } from "./ui/button";
-import { useRouter } from "next/navigation";
 
 export default function LobbyCreator() {
   const supabase = createClient();
@@ -24,8 +24,10 @@ export default function LobbyCreator() {
   return (
     <form
       className="flex flex-col justify-center gap-4"
-      onSubmit={(e) => {
+      onSubmit={async (e) => {
         e.preventDefault();
+        e.stopPropagation();
+
         const form = e.target as HTMLFormElement;
         const lobbyName = (
           form.querySelector('input[type="text"]') as HTMLInputElement
@@ -33,15 +35,15 @@ export default function LobbyCreator() {
         const isPrivate = (
           form.querySelector('input[type="checkbox"]') as HTMLInputElement
         ).checked;
-        createLobby(lobbyName, isPrivate);
+        await createLobby(lobbyName, isPrivate);
       }}
     >
       <Input type="text" placeholder="Lobby name" />
       <div className="flex items-center gap-4">
         <Input className="size-4" type="checkbox" id="private" name="private" />
-        <Label htmlFor="private">Private</Label>
+        <Label htmlFor="private">Privat</Label>
       </div>
-      <Button type="submit">Create</Button>
+      <Button type="submit">Erstellen</Button>
     </form>
   );
 }

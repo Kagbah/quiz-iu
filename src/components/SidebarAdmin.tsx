@@ -1,5 +1,11 @@
 "use client";
-import Link from "next/link";
+
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import {
   FileSliders,
   Gamepad2,
@@ -10,14 +16,9 @@ import {
   Settings,
   User,
 } from "lucide-react";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-  TooltipProvider, // Importiere den TooltipProvider
-} from "@/components/ui/tooltip";
+import Link from "next/link";
 
-export default async function SidebarAdmin() {
+export default function SidebarAdmin() {
   return (
     <div className="w-14">
       <TooltipProvider>

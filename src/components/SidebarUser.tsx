@@ -1,14 +1,15 @@
 "use client";
-import Link from "next/link";
-import { Gamepad2, LineChart, LogOut, Settings, User } from "lucide-react";
+
 import {
   Tooltip,
   TooltipContent,
+  TooltipProvider,
   TooltipTrigger,
-  TooltipProvider, // Importiere den TooltipProvider
 } from "@/components/ui/tooltip";
+import { Gamepad2, LineChart, LogOut, Settings, User } from "lucide-react";
+import Link from "next/link";
 
-export default async function SidebarUser() {
+export default function SidebarUser() {
   return (
     <div className="w-14">
       <TooltipProvider>
