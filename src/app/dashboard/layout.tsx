@@ -21,9 +21,7 @@ export default function RootLayout({
     <html lang="en" className={GeistSans.className}>
       <body className="bg-background text-foreground flex">
         <ServerSidebar />
-        <main className="min-h-screen flex flex-col items-center grow">
-          {children}
-        </main>
+        <main className="min-h-screen flex gap-8 items-start">{children}</main>
       </body>
     </html>
   );
