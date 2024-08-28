@@ -1,9 +1,46 @@
-export const runtime = "edge";
-import AuthButton from "@/components/AuthButton";
+"use server";
+
+import { ChartPie, TrendingUp } from "lucide-react";
+import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
+
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import Header from "@/components/HeaderLoggedIn";
-import { Footer } from "@/components/Footer";
+import DisplayPieChart from "@/components/ChartPie";
+import DisplayCard from "@/components/DashboardCard";
+import DisplayRadialChart from "@/components/ChartRadial";
+const chartData = [
+  { month: "January", desktop: 186, mobile: 80 },
+  { month: "February", desktop: 305, mobile: 200 },
+  { month: "March", desktop: 237, mobile: 120 },
+  { month: "April", desktop: 73, mobile: 190 },
+  { month: "May", desktop: 209, mobile: 130 },
+  { month: "June", desktop: 214, mobile: 140 },
+];
+
+const chartConfig = {
+  desktop: {
+    label: "Desktop",
+    color: "hsl(var(--chart-1))",
+  },
+  mobile: {
+    label: "Mobile",
+    color: "hsl(var(--chart-2))",
+  },
+} satisfies ChartConfig;
 
 export default async function ProtectedPage() {
   const supabase = createClient();
@@ -17,21 +54,12 @@ export default async function ProtectedPage() {
   }
 
   const questions = await supabase.from("questions").select("*");
-
   return (
-    <div className="flex-1 w-full flex flex-col gap-20 items-center">
-      <div className="w-full">
-        <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-          <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm">
-            <AuthButton />
-          </div>
-        </nav>
+    <div className="flex flex-wrap gap-8 p-8">
+      <div className="flex flex-col gap-8">
+        <DisplayCard></DisplayCard>
+        <DisplayCard></DisplayCard>
       </div>
-
-      <div className="flex-1 flex flex-col gap-20 max-w-4xl px-3">
-        <Header />
-      </div>
-      <Footer />
     </div>
   );
 }
