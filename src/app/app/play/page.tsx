@@ -22,7 +22,7 @@ export default async function ProtectedPage() {
     .eq("user_id", user.id);
 
   if (data && data.length > 0) {
-    return redirect("/play/" + data[0].lobbies_id);
+    return redirect("/app/play/" + data[0].lobbies_id);
   }
 
   return (

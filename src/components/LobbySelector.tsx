@@ -138,7 +138,7 @@ export default function LobbySelector() {
                   {lobby.maxPlayers}
                 </span>
               ) : (
-                <Link href={`/play/${lobby.id}`}>
+                <Link href={`/app/play/${lobby.id}`}>
                   {lobby.name} | {lobby.connectedPlayers[0].count}/
                   {lobby.maxPlayers}
                 </Link>

@@ -26,12 +26,12 @@ export default async function PlayPage({ params }: { params: { id: string } }) {
     .single();
 
   if (lobbyError || !lobby) {
-    return redirect("/play?message=lobby-not-found");
+    return redirect("/app/play?message=lobby-not-found");
   }
 
   // Check if lobby is full
   if (lobby.maxPlayers <= lobby.connectedPlayers[0].count) {
-    return redirect("/play?message=lobby-full");
+    return redirect("/app/play?message=lobby-full");
   }
 
   // Check if user is already in lobby
