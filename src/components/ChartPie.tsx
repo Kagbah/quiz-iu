@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { TrendingUp } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Label, Pie, PieChart } from "recharts";
 
 import {
@@ -18,43 +18,56 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-const chartData = [
-  { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
-  { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
-  { browser: "firefox", visitors: 287, fill: "var(--color-firefox)" },
-  { browser: "edge", visitors: 173, fill: "var(--color-edge)" },
-  { browser: "other", visitors: 190, fill: "var(--color-other)" },
-];
+import { createClient } from "@/utils/supabase/client";
 
 const chartConfig = {
-  visitors: {
-    label: "Visitors",
+  count: {
+    label: "Benutzer",
   },
-  chrome: {
-    label: "Chrome",
-    color: "hsl(var(--chart-1))",
-  },
-  safari: {
-    label: "Safari",
-    color: "hsl(var(--chart-2))",
-  },
-  firefox: {
-    label: "Firefox",
-    color: "hsl(var(--chart-3))",
-  },
-  edge: {
-    label: "Edge",
-    color: "hsl(var(--chart-4))",
-  },
-  other: {
-    label: "Other",
+  admin: {
+    label: "Admin",
     color: "hsl(var(--chart-5))",
+  },
+  user: {
+    label: "User",
+    color: "hsl(var(--chart-2))",
   },
 } satisfies ChartConfig;
 
 export default function DisplayPieChart() {
-  const totalVisitors = React.useMemo(() => {
-    return chartData.reduce((acc, curr) => acc + curr.visitors, 0);
+  const [chartData, setChartData] = useState([
+    { type: "admin", count: 0, fill: "var(--color-admin)" },
+    { type: "user", count: 0, fill: "var(--color-user)" },
+  ]);
+  const [totalUsers, setTotalUsers] = useState(0);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const supabase = createClient();
+
+      const { data, error } = await supabase
+        .from("user_role")
+        .select("role:role(description)");
+
+      if (data) {
+        const adminUsers = data.filter((e) => e.role?.description == "admin");
+        const users = data.filter((e) => e.role?.description == "user");
+
+        const newChartData = [
+          {
+            type: "admin",
+            count: adminUsers.length,
+            fill: "var(--color-admin)",
+          },
+          { type: "user", count: users.length, fill: "var(--color-user)" },
+        ];
+
+        setChartData(newChartData);
+        setTotalUsers(newChartData.reduce((acc, curr) => acc + curr.count, 0));
+      }
+    };
+
+    fetchData();
   }, []);
 
   return (
@@ -75,8 +88,8 @@ export default function DisplayPieChart() {
             />
             <Pie
               data={chartData}
-              dataKey="visitors"
-              nameKey="browser"
+              dataKey="count"
+              nameKey="type"
               innerRadius={60}
               strokeWidth={5}
             >
@@ -95,7 +108,7 @@ export default function DisplayPieChart() {
                           y={viewBox.cy}
                           className="fill-foreground text-3xl font-bold"
                         >
-                          {totalVisitors.toLocaleString()}
+                          {totalUsers.toLocaleString()}
                         </tspan>
                         <tspan
                           x={viewBox.cx}

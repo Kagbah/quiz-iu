@@ -17,27 +17,57 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-const chartData = [{ month: "january", desktop: 1260, mobile: 570 }];
+import { useEffect, useState } from "react";
+import { createClient } from "@/utils/supabase/client";
+import { count } from "console";
 
 const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "hsl(var(--chart-1))",
-  },
-  mobile: {
-    label: "Mobile",
+  public: {
+    label: "Öffentlich",
     color: "hsl(var(--chart-2))",
+  },
+  private: {
+    label: "Privat",
+    color: "hsl(var(--chart-5))",
   },
 } satisfies ChartConfig;
 
-export default function DisplayRadialChart() {
-  const totalVisitors = chartData[0].desktop + chartData[0].mobile;
+export default function DisplayPieChart() {
+  const [chartData, setChartData] = useState([{ private: 0, public: 0 }]);
+  const [totalLobbies, setTotalLobbies] = useState(0);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const supabase = createClient();
+
+      const { data, error } = await supabase
+        .from("lobbies")
+        .select("*", { count: "exact" });
+
+      if (data) {
+        const publicLobbies = data.filter((e) => !e.private);
+        const privateLobbies = data.filter((e) => e.private);
+
+        const newChartData = [
+          {
+            public: publicLobbies.length,
+            private: privateLobbies.length,
+          },
+        ];
+
+        setChartData(newChartData);
+        setTotalLobbies(newChartData[0].public + newChartData[0].private);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <Card className="flex flex-col">
       <CardHeader className="items-center pb-0">
-        <CardTitle>Erstellte Lobbies</CardTitle>
-        <CardDescription>alle bislang erstellten Lobbies</CardDescription>
+        <CardTitle>Verfügbare Lobbies</CardTitle>
+        <CardDescription>alle derzeit Verfügbaren Lobbies</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-1 items-center pb-0">
         <ChartContainer
@@ -65,7 +95,7 @@ export default function DisplayRadialChart() {
                           y={(viewBox.cy || 0) - 16}
                           className="fill-foreground text-2xl font-bold"
                         >
-                          {totalVisitors.toLocaleString()}
+                          {totalLobbies.toLocaleString()}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
@@ -81,15 +111,15 @@ export default function DisplayRadialChart() {
               />
             </PolarRadiusAxis>
             <RadialBar
-              dataKey="desktop"
+              dataKey="public"
               stackId="a"
               cornerRadius={5}
-              fill="var(--color-desktop)"
+              fill="var(--color-public)"
               className="stroke-transparent stroke-2"
             />
             <RadialBar
-              dataKey="mobile"
-              fill="var(--color-mobile)"
+              dataKey="private"
+              fill="var(--color-private)"
               stackId="a"
               cornerRadius={5}
               className="stroke-transparent stroke-2"
@@ -99,7 +129,7 @@ export default function DisplayRadialChart() {
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
         <div className="leading-none text-muted-foreground">
-          Zeigt alle Private und Öffentlich erstellten Lobbies
+          Aufteilung in öffentliche und private Lobbies.
         </div>
       </CardFooter>
     </Card>
