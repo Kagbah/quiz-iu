@@ -1,5 +1,6 @@
 import "@/app/globals.css";
 import ServerSidebar from "@/components/ServerSidebar";
+import { ThemeProvider } from "@/components/theme-provider";
 import { GeistSans } from "geist/font/sans";
 
 const defaultUrl = process.env.VERCEL_URL
@@ -20,10 +21,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={GeistSans.className}>
       <body className="bg-background text-foreground flex">
-        <ServerSidebar />
-        <main className="min-h-screen flex flex-col items-center grow">
-          {children}
-        </main>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <ServerSidebar />
+          <main className="min-h-screen flex flex-col items-center grow">
+            {children}
+          </main>
+        </ThemeProvider>
       </body>
     </html>
   );

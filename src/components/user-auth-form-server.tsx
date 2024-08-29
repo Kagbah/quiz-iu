@@ -19,7 +19,7 @@ export async function signIn(formData: FormData) {
     }
     return redirect("/login?message=generic");
   }
-  return redirect("/dashboard");
+  return redirect("/app/dashboard");
 }
 
 export async function signUp(formData: FormData) {

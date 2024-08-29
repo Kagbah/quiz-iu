@@ -20,8 +20,9 @@ import {
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import DisplayPieChart from "@/components/ChartPie";
-import DisplayCard from "@/components/DashboardCard";
 import DisplayRadialChart from "@/components/ChartRadial";
+import DisplayQuestionCard from "@/components/DashboardCardQuestion";
+import DisplayCategoryCard from "@/components/DashboardCardCategory";
 const chartData = [
   { month: "January", desktop: 186, mobile: 80 },
   { month: "February", desktop: 305, mobile: 200 },
@@ -56,10 +57,12 @@ export default async function ProtectedPage() {
   const questions = await supabase.from("questions").select("*");
   return (
     <div className="flex flex-wrap gap-8 p-8">
+      <DisplayPieChart></DisplayPieChart>
       <div className="flex flex-col gap-8">
-        <DisplayCard></DisplayCard>
-        <DisplayCard></DisplayCard>
+        <DisplayCategoryCard></DisplayCategoryCard>
+        <DisplayQuestionCard></DisplayQuestionCard>
       </div>
+      <DisplayRadialChart></DisplayRadialChart>
     </div>
   );
 }

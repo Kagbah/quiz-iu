@@ -5,6 +5,7 @@ import React from "react";
 import CategoryManagement from "@/components/QuizManagement";
 // import './CreateQuiz.css';
 import QuizManagement from "@/components/QuizManagement";
+import { ModeToggle } from "@/components/ModeToggle";
 
 export default async function ProtectedPage() {
   const supabase = createClient();
@@ -19,7 +20,7 @@ export default async function ProtectedPage() {
 
   return (
     <div className="flex-1 w-full flex flex-col gap-20 items-center">
-      settings
+      <ModeToggle></ModeToggle>
     </div>
   );
 }

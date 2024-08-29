@@ -32,7 +32,10 @@ export default function SidebarAdmin() {
             </Link>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Link href="/admin-dashboard" className="sidebarTooltipLink">
+                <Link
+                  href="/app/admin-dashboard"
+                  className="sidebarTooltipLink"
+                >
                   <FileSliders className="h-5 w-5" />
                   <span className="sr-only">Admin-Dashboard</span>
                 </Link>
@@ -41,7 +44,7 @@ export default function SidebarAdmin() {
             </Tooltip>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Link href="/dashboard" className="sidebarTooltipLink">
+                <Link href="/app/dashboard" className="sidebarTooltipLink">
                   <LineChart className="h-5 w-5" />
                   <span className="sr-only">Dashboard</span>
                 </Link>
@@ -50,7 +53,7 @@ export default function SidebarAdmin() {
             </Tooltip>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Link href="/fragenkatalog" className="sidebarTooltipLink">
+                <Link href="/app/fragenkatalog" className="sidebarTooltipLink">
                   <LibraryBig className="h-5 w-5" />
                   <span className="sr-only">Fragen einsehen</span>
                 </Link>
@@ -59,7 +62,7 @@ export default function SidebarAdmin() {
             </Tooltip>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Link href="/quiz_manager" className="sidebarTooltipLink">
+                <Link href="/app/quiz_manager" className="sidebarTooltipLink">
                   <Plus className="h-5 w-5" />
                   <span className="sr-only">Quiz Erstellen</span>
                 </Link>
@@ -70,7 +73,7 @@ export default function SidebarAdmin() {
           <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
             <Tooltip>
               <TooltipTrigger asChild>
-                <Link href="/settings" className="sidebarTooltipLink">
+                <Link href="/app/settings" className="sidebarTooltipLink">
                   <Settings className="h-5 w-5" />
                   <span className="sr-only">Einstellungen</span>
                 </Link>
@@ -79,7 +82,7 @@ export default function SidebarAdmin() {
             </Tooltip>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Link href="/profile" className="sidebarTooltipLink">
+                <Link href="/app/profile" className="sidebarTooltipLink">
                   <User className="h-5 w-5" />
                   <span className="sr-only">Profil</span>
                 </Link>
