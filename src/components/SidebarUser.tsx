@@ -6,7 +6,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Gamepad2, LineChart, LogOut, Settings, User } from "lucide-react";
+import { Gamepad2, LineChart, LogOut, Settings, User, ClipboardList } from "lucide-react";
 import Link from "next/link";
 
 export default function SidebarUser() {
@@ -30,6 +30,18 @@ export default function SidebarUser() {
               </TooltipTrigger>
               <TooltipContent side="right">Dashboard</TooltipContent>
             </Tooltip>
+            
+            {/* Neuer Abschnitt für Quizmanager */}
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Link href="/app/fragenkatalog" className="sidebarTooltipLink">
+                  <ClipboardList className="h-5 w-5" />
+                  <span className="sr-only">Quizmanager</span>
+                </Link>
+              </TooltipTrigger>
+              <TooltipContent side="right">Quizmanager</TooltipContent>
+            </Tooltip>
+            
           </nav>
           <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
             <Tooltip>

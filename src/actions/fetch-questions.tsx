@@ -15,7 +15,6 @@ type Question = {
   updatedBy: string | null;
 };
 
-
 export const fetchQuestions = async (categoryId: number): Promise<Question[]> => {
   const supabase = createClient();
 
@@ -29,13 +28,24 @@ export const fetchQuestions = async (categoryId: number): Promise<Question[]> =>
       throw error;
     }
 
-    // Sicherstellen, dass 'options' ein Array von Strings ist
+    // Sicherstellen, dass 'options' als Array interpretiert wird
     return data.map(question => ({
       ...question,
-      options: typeof question.options === 'string' ? JSON.parse(question.options) : question.options,
+      options: parseOptions(question.options),
     })) as Question[];
   } catch (error) {
     console.error('Fehler beim Laden der Fragen:', error);
     return [];
   }
+};
+
+// Hilfsfunktion zum Verarbeiten der Optionen
+const parseOptions = (options: string | string[]): string[] => {
+  if (typeof options === 'string') {
+    // Hier gehen wir davon aus, dass die Optionen durch Kommas getrennt sind
+    return options.split(',').map(option => option.trim()); // Optionen trennen und Leerzeichen entfernen
+  }
+
+  // Wenn es bereits ein Array ist, gib es direkt zurück
+  return options;
 };
