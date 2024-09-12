@@ -15,7 +15,7 @@ export async function GET(request: Request) {
     await supabase.auth.exchangeCodeForSession(code);
 
     const { error } = await supabase.from("user_role").insert({
-      user_id: (await supabase.auth.getUser()).data.user?.id,
+      user_id: (await supabase.auth.getUser()).data.user?.id!,
       role_id: 1, // User
     });
 
