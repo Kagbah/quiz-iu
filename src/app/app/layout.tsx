@@ -20,12 +20,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={GeistSans.className}>
-      <body className="bg-background text-foreground flex">
+      <body className="bg-background text-foreground">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <ServerSidebar />
-          <main className="min-h-screen flex flex-col items-center grow">
-            {children}
-          </main>
+          <div className="flex min-h-screen">
+            <ServerSidebar />
+            <main className="flex-grow flex flex-col items-center">
+              {children}
+            </main>
+          </div>
         </ThemeProvider>
       </body>
     </html>

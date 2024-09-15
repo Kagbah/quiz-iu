@@ -25,7 +25,7 @@ export default async function DisplayQuestionCard() {
       </CardHeader>
       <CardContent>
         <Button variant={"secondary"} className="w-full">
-          <Link href="/app/fragenkatalog">zum Fragenkatalog</Link>
+          <Link href="/app/dashboard">zum Fragenkatalog</Link>
         </Button>
       </CardContent>
     </Card>

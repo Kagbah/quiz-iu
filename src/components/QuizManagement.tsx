@@ -333,21 +333,30 @@ const handleEditQuestion = (question: any) => {
 
         {/* CSV-Upload Button */}
         <div className="mt-6">
-          <Label className="font-medium">Fragen via CSV hochladen</Label>
-          <input
-            id="csv-upload"
+
+          {/* CSV-Datei hochladen */}
+          <div className=" ">
+                    <Label className="font-medium">Fragen via CSV hochladen</Label>
+          <Button>
+          <Input
             type="file"
             accept=".csv"
             onChange={handleCSVUpload}
-            className="hidden"
           />
-          <label htmlFor="csv-upload">
-            <Button type="button">CSV Datei hochladen</Button>
-          </label>
-          {/* Dateiname anzeigen */}
-          {csvFileName && <p className="mt-2 text-sm text-gray-600">Ausgewählte Datei: {csvFileName}</p>}
+          </Button>
+          {/* Zeige den Dateinamen an, wenn eine Datei ausgewählt wurde */}
+          {csvFileName && (
+            <p className="mt-2 text-sm text-gray-600">Ausgewählte Datei: {csvFileName}</p>
+          )}
+        </div>
         </div>
       </div>
+
+
+
+
+
+
 
       {/* Fragen in der Kategorie */}
       {selectedCategory && questions.length > 0 && (

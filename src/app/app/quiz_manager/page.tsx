@@ -4,7 +4,6 @@ import { redirect } from "next/navigation";
 import React from "react";
 import CategoryManagement from "@/components/QuizManagement";
 // import './CreateQuiz.css';
-import QuizManagement from "@/components/QuizManagement";
 
 export default async function ProtectedPage() {
   const supabase = createClient();
