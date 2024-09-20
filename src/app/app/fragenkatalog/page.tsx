@@ -2,7 +2,7 @@ export const runtime = "edge";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { Button } from "@/components/ui/button"; // Stellt sicher, dass der Button importiert ist
+import { Button } from "@/components/ui/button";
 import React from "react";
 
 export default async function ProtectedPage() {
@@ -17,7 +17,9 @@ export default async function ProtectedPage() {
   }
 
   // Alle Kategorien abrufen
-  const { data: categories, error } = await supabase.from("categories").select("*");
+  const { data: categories, error } = await supabase
+    .from("categories")
+    .select("*");
 
   if (error) {
     console.error("Fehler beim Abrufen der Kategorien:", error);
@@ -25,30 +27,30 @@ export default async function ProtectedPage() {
   }
 
   return (
-    <div className="flex flex-col items-center p-8">
+    <div className="flex flex-col items-center p-8 gap-8">
       {/* Überschrift */}
-      <h1 className="text-4xl font-bold text-center mb-8">Fragenkatalog</h1>
+      <h1 className="text-3xl font-bold text-center">Fragenkatalog</h1>
 
       {/* Container für alle Kategorien */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
         {categories?.map((category) => (
           <div
             key={category.id}
-            className="p-6 bg-white border rounded-lg shadow-lg hover:shadow-xl transition-shadow"
+            className="p-6 bg-popover border border-border rounded-lg"
           >
             {/* Kategoriename als anklickbarer Button */}
-            <h2 className="text-2xl font-semibold mb-4 text-blue-600">
-              <Link href={`/categories/${category.id}`}>
+            <h2 className="text-2xl font-semibold mb-4 text-cataloge">
+              <Link href={`/app/categories/${category.id}`}>
                 {category.name}
               </Link>
             </h2>
-            <p className="text-gray-600 mb-4">
+            <p className="text-muted-foreground mb-4">
               Dieser Fragenkatalog enthält viele interessante Fragen.
             </p>
 
             {/* Details Button */}
-            <Link href={`/categories/${category.id}`}>
-              <Button className="w-full bg-blue-500 text-white">
+            <Link href={`/app/categories/${category.id}`}>
+              <Button variant={"default"} className="w-full">
                 Mehr erfahren
               </Button>
             </Link>

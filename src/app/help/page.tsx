@@ -13,7 +13,7 @@ export default async function Index() {
       </nav>
 
       <div className="flex-1 flex flex-col gap-20 max-w-4xl px-3">
-        Ich benötige Hilfe!
+        Wenn sie hilfe benötigen kontaktieren sie bitte das Projektteam.
       </div>
 
       <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
@@ -21,7 +21,6 @@ export default async function Index() {
           <Link href="#">Datenschutz</Link>
           <Link href="#">Impressum</Link>
           <Link href="/help">Hilfe</Link>
-          <Link href="/admin-login">Login für Admins</Link>
         </div>
       </footer>
     </div>

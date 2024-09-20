@@ -1,11 +1,10 @@
 export const runtime = "edge";
 
-import LobbyCreator from "@/components/LobbyCreator";
-import LobbySelector from "@/components/LobbySelector";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
+import GameModeSelector from "@/components/GameModeSelector";
 
-export default async function ProtectedPage() {
+export default async function PlayPage() {
   const supabase = createClient();
 
   const {
@@ -28,9 +27,7 @@ export default async function ProtectedPage() {
   return (
     <div className="flex-1 w-full flex flex-col gap-20 items-center">
       <div className="flex-1 flex flex-col gap-8 max-w-4xl px-3 justify-center">
-        <LobbySelector />
-        <LobbyCreator />
-        <hr />
+        <GameModeSelector />
       </div>
     </div>
   );
