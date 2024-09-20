@@ -5,6 +5,10 @@ import { redirect } from "next/navigation";
 
 export async function leaveLobby(userId: string) {
   const supabase = createClient();
-  await supabase.from("lobbies_user").delete().eq("user_id", userId);
+  const { data, error } = await supabase
+    .from("lobbies_user")
+    .delete()
+    .eq("user_id", userId);
+  console.log(error);
   redirect("/app/play");
 }
