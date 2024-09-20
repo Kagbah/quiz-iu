@@ -38,13 +38,9 @@ export default function SidebarAdmin() {
         </button>
       </div>
 
-      <div className="md:w-14">
+      <div className="md:w-14"> 
         <TooltipProvider>
-          <aside
-            className={`fixed inset-y-0 left-0 max-md:z-30 transition-transform transform ${
-              isOpen ? "translate-x-0" : "-translate-x-full"
-            } md:translate-x-0 z-10 w-14 flex-col border-r bg-background flex max-md:py-4`}
-          >
+          <aside className={`fixed inset-y-0 left-0 max-md:z-30 transition-transform transform ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 z-10 w-14 flex-col border-r bg-background flex max-md:py-4`}>
             <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
               <Link
                 href="/app/play"
@@ -117,7 +113,7 @@ export default function SidebarAdmin() {
 
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Link href="/logout" className="sidebarTooltipLink">
+                  <Link href="/logout" replace className="sidebarTooltipLink">
                     <LogOut className="h-5 w-5" />
                     <span className="sr-only">Ausloggen</span>
                   </Link>
@@ -128,8 +124,8 @@ export default function SidebarAdmin() {
           </aside>
         </TooltipProvider>
       </div>
-      {/* Overlay for mobile when sidebar is open */}
-      {isOpen && (
+           {/* Overlay for mobile when sidebar is open */}
+           {isOpen && (
         <div
           onClick={toggleSidebar}
           className="fixed inset-0 z-20 bg-black bg-opacity-50 sm:hidden"
