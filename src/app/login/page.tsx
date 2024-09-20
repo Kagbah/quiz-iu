@@ -7,6 +7,7 @@ import { UserAuthForm } from "@/components/user-auth-form-login";
 import { Icons } from "@/components/ui/icons";
 import { Logo } from "@/components/Logo";
 import { ErrorMessage } from "@/components/ErrorMessage";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Authentication",
@@ -47,7 +48,9 @@ export default function AuthenticationPage() {
               </p>
             </div>
           </div>
-          <ErrorMessage />
+          <Suspense>
+            <ErrorMessage />
+          </Suspense>
         </div>
       </div>
     </>
