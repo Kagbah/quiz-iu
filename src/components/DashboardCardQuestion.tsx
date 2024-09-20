@@ -11,22 +11,42 @@ import {
 import { createClient } from "@/utils/supabase/client";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { TrendingUp, Users } from "lucide-react";
 
-export default async function DisplayQuestionCard() {
+export default async function DisplayCategoryCard() {
   const supabase = createClient();
-  const { data, count } = await supabase
-    .from("questions")
-    .select("*", { count: "exact" });
+  // Fragen- und Kategoriedaten
+  const { data: categories, error: categoryError } = await supabase
+    .from("categories")
+    .select("id, name, questions(id)");
+
+  const totalQuestions =
+    categories?.reduce((acc, category) => acc + category.questions.length, 0) ||
+    0;
+  const mostActiveCategory =
+    categories?.sort((a, b) => b.questions.length - a.questions.length)[0] ||
+    null;
+
   return (
-    <Card className="w-[300px] grow">
-      <CardHeader className="pb-2">
-        <CardDescription>Quizfragen</CardDescription>
-        <CardTitle className="text-4xl py-2">{count}</CardTitle>
+    <Card className="w-full">
+      <CardHeader>
+        <CardTitle className="flex items-center gap-4 mb-4">
+          <TrendingUp className="size-8 text-green-600"></TrendingUp>
+          <p className="text-base">Fragen- und Kategorienstatistiken</p>
+        </CardTitle>
       </CardHeader>
       <CardContent>
-        <Button variant={"secondary"} className="w-full">
-          <Link href="/app/dashboard">zum Fragenkatalog</Link>
-        </Button>
+        <div className="flex gap-1">
+          <p>Anzahl der Fragen gesamt:</p>
+          <p className="font-bold">{totalQuestions}</p>
+        </div>
+        <div className="flex gap-1">
+          <p>Aktivste Kategorie:</p>
+          <p className="font-bold">
+            {mostActiveCategory?.name} ({mostActiveCategory?.questions.length}{" "}
+            Fragen)
+          </p>
+        </div>
       </CardContent>
     </Card>
   );
