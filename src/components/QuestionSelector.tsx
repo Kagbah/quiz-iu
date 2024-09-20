@@ -1,11 +1,9 @@
 "use client";
 
-import React from 'react';
+import React from "react";
 import { Tables } from "@/types/database.types";
 
-type Question = Tables<'questions'>;
-
-
+type Question = Tables<"questions">;
 
 interface QuestionSelectorProps {
   questions: {
@@ -33,42 +31,73 @@ interface QuestionSelectorProps {
   onDelete: (questionId: number) => void;
 }
 
-export function QuestionSelector({ questions, onEdit, onDelete }: QuestionSelectorProps) {
+export function QuestionSelector({
+  questions,
+  onEdit,
+  onDelete,
+}: QuestionSelectorProps) {
   return (
     <div className="questions-selector">
       <h2>Fragen:</h2>
       {questions && questions.length > 0 ? (
         <ul className="questions-list">
           {questions.map((question) => {
-            const optionsString = typeof question.options === 'string'
-              ? question.options
-              : question.options.join(', '); // Konvertiere Array zu String, falls nötig
+            const optionsString =
+              typeof question.options === "string"
+                ? question.options
+                : question.options.join(", "); // Konvertiere Array zu String, falls nötig
 
             return (
               <li key={question.id} className="question-item">
-                <div className="question-text">{question.questionText}</div>
+                <div className="question-text text-wrap">
+                  {question.questionText}
+                </div>
                 <div className="question-options">
-                  {typeof question.options === 'string' 
-                    ? question.options.split(',').map((option: string, index: number) => (
-                        <div
-                          key={index}
-                          className={`option ${option === question.correctAnswer ? 'correct' : ''}`}
-                        >
-                          {option} {option === question.correctAnswer && <strong>(Richtige Antwort)</strong>}
-                        </div>
-                      ))
+                  {typeof question.options === "string"
+                    ? question.options
+                        .split(",")
+                        .map((option: string, index: number) => (
+                          <div
+                            key={index}
+                            className={`option ${
+                              option === question.correctAnswer ? "correct" : ""
+                            }`}
+                          >
+                            {option}{" "}
+                            {option === question.correctAnswer && (
+                              <strong>(Richtige Antwort)</strong>
+                            )}
+                          </div>
+                        ))
                     : question.options.map((option: string, index: number) => (
                         <div
                           key={index}
-                          className={`option ${option === question.correctAnswer ? 'correct' : ''}`}
+                          className={`option ${
+                            option === question.correctAnswer ? "correct" : ""
+                          }`}
                         >
-                          {option} {option === question.correctAnswer && <strong>(Richtige Antwort)</strong>}
+                          {option}{" "}
+                          {option === question.correctAnswer && (
+                            <strong>(Richtige Antwort)</strong>
+                          )}
                         </div>
                       ))}
                 </div>
                 <div className="question-actions">
-                  <button className="edit-button" onClick={() => onEdit({ ...question, options: optionsString })}>Bearbeiten</button>
-                  <button className="delete-button" onClick={() => onDelete(question.id)}>Löschen</button>
+                  <button
+                    className="edit-button"
+                    onClick={() =>
+                      onEdit({ ...question, options: optionsString })
+                    }
+                  >
+                    Bearbeiten
+                  </button>
+                  <button
+                    className="delete-button"
+                    onClick={() => onDelete(question.id)}
+                  >
+                    Löschen
+                  </button>
                 </div>
               </li>
             );
@@ -78,5 +107,5 @@ export function QuestionSelector({ questions, onEdit, onDelete }: QuestionSelect
         <p>Keine Fragen in dieser Kategorie hinzugefügt.</p>
       )}
     </div>
-  );  
+  );
 }
