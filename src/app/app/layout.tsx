@@ -1,3 +1,4 @@
+export const runtime = "edge";
 import "@/app/globals.css";
 import ServerSidebar from "@/components/ServerSidebar";
 import { ThemeProvider } from "@/components/theme-provider";
