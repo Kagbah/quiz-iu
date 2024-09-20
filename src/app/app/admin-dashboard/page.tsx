@@ -27,8 +27,8 @@ export default async function AdminDashboard() {
     .limit(5);
 
   return (
-    <div className="flex flex-col p-8 space-y-8">
-      <h1 className="text-3xl font-bold mb-8 text-center">Admin Dashboard</h1>
+    <div className="flex flex-col p-8 gap-8">
+      <h1 className="text-xl md:text-3xl font-bold text-center">Admin Dashboard</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 ">
         <DisplayUsersCard></DisplayUsersCard>
         <DisplayQuestionCard></DisplayQuestionCard>

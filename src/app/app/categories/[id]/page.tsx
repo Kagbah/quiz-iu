@@ -47,7 +47,7 @@ export default function CategoryDetailPage({
 
   return (
     <div className="container mx-auto p-8">
-      <h1 className="text-3xl text-cataloge font-bold mb-8">{category.name}</h1>
+      <h1 className="text-xl md:text-3xl text-cataloge font-bold mb-8">{category.name}</h1>
       <p className="text-lg mb-4">
         Dies ist die Detailseite für die Kategorie {category.name}. Hier sind
         die zugehörigen Fragen:

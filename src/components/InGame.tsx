@@ -151,7 +151,7 @@ export default function InGame() {
 
   if (gameOver) {
     return (
-      <div className="text-center my-auto flex flex-col gap-4">
+      <div className="text-center my-auto flex flex-col gap-4 p-8">
         <h2 className="text-2xl font-bold">Das Spiel ist vorbei.</h2>
         <div className="text-secondary-foreground bg-secondary p-6 mx-auto aspect-square text-3xl flex justify-center items-center rounded-lg border border-secondary-foreground gap-1">
           <strong>{scores.player || 0}</strong> /{" "}
@@ -182,17 +182,21 @@ export default function InGame() {
   }
 
   return (
-    <div className="my-auto flex flex-col gap-4">
-      <h2 className="text-2xl font-bold">{currentQuestion.questionText}</h2>
-      <div className="grid grid-cols-2 gap-4">
+    <div className="my-auto flex flex-col gap-4 p-8 max-md:mt-8 md:max-w-[596px]">
+      <h2 className="text-2xl font-bold text-wrap">
+        {currentQuestion.questionText}
+      </h2>
+      <div className="grid md:grid-cols-2 gap-4">
         {currentQuestion.options.map((option, index) => (
-          <Button
-            className="h-44 w-64 font-semibold text-lg"
-            key={index}
-            onClick={() => handleAnswer(option)}
-          >
-            {option}
-          </Button>
+          <div className="border-gradient">
+            <Button
+              className="min-h-32 md:min-h-44 w-full md:w-64 font-semibold text-lg text-wrap"
+              key={index}
+              onClick={() => handleAnswer(option)}
+            >
+              {option}
+            </Button>
+          </div>
         ))}
       </div>
       <div>

@@ -337,17 +337,19 @@ export default function MultiplayerGame() {
     : [];
 
   return (
-    <div className="my-auto flex flex-col gap-4 px-8">
+    <div className="my-auto flex flex-col gap-4 p-8 max-md:mt-8 md:max-w-[596px]">
       <h2 className="text-2xl font-bold">{currentQuestion?.questionText}</h2>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid md:grid-cols-2 gap-4">
         {options.map((option, index) => (
-          <Button
-            key={index}
-            onClick={() => handleAnswer(option)}
-            className="h-44 w-64 font-semibold text-lg"
-          >
-            {option}
-          </Button>
+          <div className="border-gradient">
+            <Button
+              key={index}
+              onClick={() => handleAnswer(option)}
+              className="min-h-32 md:min-h-44 w-full md:w-64 font-semibold text-lg text-wrap"
+            >
+              {option}
+            </Button>
+          </div>
         ))}
       </div>
       <div>

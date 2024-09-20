@@ -272,9 +272,9 @@ export default function QuizManagement() {
   };
 
   return (
-    <div className="container mx-auto space-y-10">
+    <div className="container mx-auto flex flex-col gap-8 max-md:p-0">
       {/* Quiz erstellen */}
-      <div className="w-full min-w-96 max-w-4xl p-6 bg-secondary border border-border rounded-lg mx-auto">
+      <div className="w-full md:min-w-96 max-w-4xl p-6 bg-secondary border border-border rounded-lg mx-auto">
         <h2 className="text-xl font-semibold mb-4">Quiz erstellen</h2>
         <form onSubmit={handleAddCategory} className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
@@ -298,22 +298,27 @@ export default function QuizManagement() {
         <h2 className="text-xl font-semibold mb-4">
           {isEditing ? "Frage bearbeiten" : "Neue Frage erstellen"}
         </h2>
-
         {/* Kategorieauswahl */}
         <div className="flex flex-col gap-2">
           <Label className="font-medium">Kategorie auswählen</Label>
-          <select
+          <Select
             value={selectedCategory || ""}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-            className="p-2 border rounded"
+            onValueChange={setSelectedCategory}
           >
-            <option value="">Kategorie wählen</option>
-            {categories.map((category: any) => (
-              <option key={category.id} value={category.id}>
-                {category.name}
-              </option>
-            ))}
-          </select>
+            <SelectTrigger className="p-2 border rounded">
+              <SelectValue placeholder="Kategorie wählen" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Kategorie auswählen</SelectLabel>
+                {categories.map((category: any) => (
+                  <SelectItem key={category.id} value={category.id}>
+                    {category.name}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
         </div>
 
         <form

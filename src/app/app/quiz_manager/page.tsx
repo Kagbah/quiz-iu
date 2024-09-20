@@ -17,10 +17,10 @@ export default async function ProtectedPage() {
   }
 
   return (
-    <div className="flex-1 w-full flex flex-col gap-20 items-center p-8">
-      <div className="flex-1 flex flex-col gap-8 md:min-w-[420px] max-w-4xl px-3 justify-center">
+    <div className="w-full flex flex-col gap-20 items-center p-8">
+      <div className="flex flex-col gap-8 md:min-w-[400px] max-w-4xl px-3 justify-center">
         {" "}
-        <h2 className="font-bold text-3xl text-foreground text-center">
+        <h2 className="font-bold text-xl md:text-3xl text-foreground text-center">
           Quiz erstellen
         </h2>
         <CategoryManagement />

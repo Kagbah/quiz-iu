@@ -42,7 +42,9 @@ export default function ProfilePage() {
 
   return (
     <div className="container mx-auto p-8">
-      <h1 className="text-3xl font-bold mb-8 text-center">Dein Profil</h1>
+      <h1 className="text-xl md:text-3xl font-bold mb-8 text-center">
+        Dein Profil
+      </h1>
 
       <div className="bg-white shadow-lg rounded-lg p-6 max-w-xl mx-auto">
         <h2 className="text-xl font-semibold mb-4 text-secondary-foreground">

@@ -27,28 +27,28 @@ export default async function ProtectedPage() {
 
   return (
     <div className="flex flex-col items-center gap-8 justify-between p-8 h-full">
-      <h1 className="text-3xl font-bold text-center">Dashboard</h1>
-
-      <Link href="/app/play">
-        <Button
-          className="px-12 py-8 text-lg font-semibold"
-          variant={"default"}
-        >
-          Jetzt spielen
-        </Button>
-      </Link>
-
+      <h1 className="text-xl md:text-3xl font-bold text-center">Dashboard</h1>
+      <div className="border-gradient">
+        <Link href="/app/play">
+          <Button
+            className="px-8 md:px-12 py-6 md:py-8 text-lg font-bold md:font-semibold"
+            variant={"default"}
+          >
+            Jetzt spielen
+          </Button>
+        </Link>
+      </div>
       <div className="w-full p-8">
-        <h2 className="text-xl font-bold text-center mb-6">
+        <h2 className="text-xl font-bold text-center mb-3 md:mb-6">
           Kategorien entdecken
         </h2>
-        <div className="flex flex-wrap gap-6 justify-center">
+        <div className="flex flex-wrap gap-3 md:gap-6 justify-center">
           {categories?.map((category) => (
             <div key={category.id}>
               <Link href={`/app/categories/${category.id}`} passHref>
                 <Button
                   variant="secondary"
-                  className="w-full text-secondary-foreground p-6"
+                  className="w-full text-secondary-foreground p-3 md:p-6"
                 >
                   <h3>{category.name}</h3>
                 </Button>

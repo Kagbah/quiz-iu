@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 export default function Header() {
@@ -10,11 +10,10 @@ export default function Header() {
         <p className="font-semibold">Los geht's.</p>
         <p className="text-2xl lg:text-3xl">Viel Spaß beim Quizzen!</p>
       </div>
-      <Link
-        href="/login"
-        className={cn(buttonVariants({ variant: "default" }), "")}
-      >
-        <p className="font-bold">Anmelden und loslegen</p>
+      <Link href="/login" className="border-gradient">
+        <Button className="p-6">
+          <p className="font-bold">Anmelden und loslegen</p>
+        </Button>
       </Link>
       <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent my-8" />
     </div>

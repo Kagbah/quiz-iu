@@ -29,7 +29,9 @@ export default async function ProtectedPage() {
   return (
     <div className="flex flex-col items-center p-8 gap-8">
       {/* Überschrift */}
-      <h1 className="text-3xl font-bold text-center">Fragenkatalog</h1>
+      <h1 className="text-xl md:text-3xl font-bold text-center">
+        Fragenkatalog
+      </h1>
 
       {/* Container für alle Kategorien */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">

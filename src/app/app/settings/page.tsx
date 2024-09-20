@@ -57,7 +57,7 @@ export default function SettingsPage() {
 
   return (
     <div className="container mx-auto p-8">
-      <h1 className="text-3xl font-bold mb-10 text-center">Einstellungen</h1>
+      <h1 className="text-xl md:text-3xl font-bold mb-10 text-center">Einstellungen</h1>
 
       <div className="flex flex-col items-center space-y-8">
         <div className="flex flex-col justify-center">

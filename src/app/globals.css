@@ -4,6 +4,11 @@
 
 @layer base {
   :root {
+    --border-gradient: linear-gradient(
+      90deg,
+      hsl(220, 90%, 55%),
+      hsl(340, 85%, 60%)
+    ); /* Example gradient */
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
@@ -34,6 +39,11 @@
   }
 
   .dark {
+    --border-gradient: linear-gradient(
+      90deg,
+      hsl(220, 90%, 50%),
+      hsl(340, 85%, 55%)
+    );
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
     --card: 222.2 84% 4.9%;
@@ -75,6 +85,9 @@
 @layer utilities {
   .sidebarTooltipLink {
     @apply flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8;
+  }
+  .border-gradient {
+    @apply border-transparent p-[1px] bg-gradient-to-br from-[#695bf8] via-[#ff00e4] to-[#ff1414] rounded-lg bg-clip-border;
   }
 }
 
