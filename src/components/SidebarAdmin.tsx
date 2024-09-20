@@ -9,8 +9,8 @@ import {
 import {
   FileSliders,
   Gamepad2,
+  Home,
   LibraryBig,
-  LineChart,
   LogOut,
   Plus,
   Settings,
@@ -45,7 +45,7 @@ export default function SidebarAdmin() {
             <Tooltip>
               <TooltipTrigger asChild>
                 <Link href="/app/dashboard" className="sidebarTooltipLink">
-                  <LineChart className="h-5 w-5" />
+                  <Home className="h-5 w-5" />
                   <span className="sr-only">Dashboard</span>
                 </Link>
               </TooltipTrigger>
