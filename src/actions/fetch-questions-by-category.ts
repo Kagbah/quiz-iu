@@ -2,7 +2,7 @@
 
 import { createClient } from "@/utils/supabase/server";
 
-export const fetchQuestionsByCategoryId = async (categoryId: string) => {
+export const fetchQuestionsByCategoryId = async (categoryId: number) => {
   const supabase = createClient();
 
   try {
