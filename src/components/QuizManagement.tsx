@@ -287,7 +287,7 @@ export default function QuizManagement() {
     const supabase = createClient();
 
     try {
-      // ... (delete question code)
+      await supabase.from("questions").delete().eq("id", questionId);
 
       if (selectedCategory) {
         const categoryId = Number(selectedCategory);
