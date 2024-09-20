@@ -36,28 +36,30 @@ export default function SettingsPage() {
   };
 
   // Funktion zum Löschen des Kontos
-  const handleDeleteAccount = async () => {
-    const confirmation = confirm("Möchten Sie wirklich Ihr Konto löschen?");
+  // const handleDeleteAccount = async () => {
+  //   const confirmation = confirm("Möchten Sie wirklich Ihr Konto löschen?");
 
-    if (!confirmation) return;
+  //   if (!confirmation) return;
 
-    setLoading(true);
+  //   setLoading(true);
 
-    const { error } = await supabase.auth.deleteUser();
+  //   const { error } = await supabase.auth.deleteUser();
 
-    setLoading(false);
+  //   setLoading(false);
 
-    if (error) {
-      alert("Fehler beim Löschen des Kontos: " + error.message);
-    } else {
-      alert("Ihr Konto wurde erfolgreich gelöscht.");
-      router.push("/login"); // Zurück zur Login-Seite leiten
-    }
-  };
+  //   if (error) {
+  //     alert("Fehler beim Löschen des Kontos: " + error.message);
+  //   } else {
+  //     alert("Ihr Konto wurde erfolgreich gelöscht.");
+  //     router.push("/login"); // Zurück zur Login-Seite leiten
+  //   }
+  // };
 
   return (
     <div className="container mx-auto p-8">
-      <h1 className="text-xl md:text-3xl font-bold mb-10 text-center">Einstellungen</h1>
+      <h1 className="text-xl md:text-3xl font-bold mb-10 text-center">
+        Einstellungen
+      </h1>
 
       <div className="flex flex-col items-center space-y-8">
         <div className="flex flex-col justify-center">
@@ -95,13 +97,13 @@ export default function SettingsPage() {
           <h2 className="text-2xl font-semibold mb-4 text-center">
             Konto löschen
           </h2>
-          <Button
+          {/* <Button
             className="w-full bg-red-500"
             onClick={handleDeleteAccount}
             disabled={loading}
           >
             {loading ? "Löschen..." : "Konto löschen"}
-          </Button>
+          </Button> */}
         </div>
       </div>
     </div>
