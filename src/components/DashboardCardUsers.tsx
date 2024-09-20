@@ -8,9 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { createClient } from "@/utils/supabase/client";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { createClient } from "@/utils/supabase/server";
 import { Users } from "lucide-react";
 
 export default async function DisplayCategoryCard() {
