@@ -12,6 +12,17 @@ export const updateSession = async (request: NextRequest) => {
       },
     });
 
+    response.headers.append("Access-Control-Allow-Credentials", "true");
+    response.headers.append("Access-Control-Allow-Origin", "quiz-iu.pages.dev");
+    response.headers.append(
+      "Access-Control-Allow-Methods",
+      "GET,DELETE,PATCH,POST,PUT"
+    );
+    response.headers.append(
+      "Access-Control-Allow-Headers",
+      "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
+    );
+
     const supabase = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
