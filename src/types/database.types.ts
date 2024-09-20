@@ -54,6 +54,36 @@ export type Database = {
         };
         Relationships: [];
       };
+      lobbies_questions: {
+        Row: {
+          lobbiesId: number;
+          questionsId: number;
+        };
+        Insert: {
+          lobbiesId: number;
+          questionsId: number;
+        };
+        Update: {
+          lobbiesId?: number;
+          questionsId?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "lobbies_questions_lobbiesId_fkey";
+            columns: ["lobbiesId"];
+            isOneToOne: false;
+            referencedRelation: "lobbies";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "lobbies_questions_questionsId_fkey";
+            columns: ["questionsId"];
+            isOneToOne: false;
+            referencedRelation: "questions";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
       lobbies_user: {
         Row: {
           lobbies_id: number;
