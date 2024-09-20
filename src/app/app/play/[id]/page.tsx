@@ -1,5 +1,6 @@
-// Import necessary modules
 "use client";
+export const runtime = "edge";
+
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { createClient } from "@/utils/supabase/client";
@@ -12,7 +13,6 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 
-// Main function definition
 function LobbyPage() {
   const { id: lobbyIdParam } = useParams();
   const router = useRouter();

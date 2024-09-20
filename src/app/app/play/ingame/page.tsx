@@ -1,4 +1,5 @@
 "use client";
+export const runtime = "edge";
 
 import { useSearchParams } from "next/navigation";
 import InGame from "@/components/InGame";

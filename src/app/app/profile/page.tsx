@@ -1,8 +1,9 @@
-"use client"; // Markiere die Komponente als clientseitig
+"use client";
+export const runtime = "edge";
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { createClient } from "@/utils/supabase/client"; // Verwende den korrekten Import
+import { createClient } from "@/utils/supabase/client";
 import { Button } from "@/components/ui/button";
 
 export default function ProfilePage() {
