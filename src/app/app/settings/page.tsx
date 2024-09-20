@@ -5,6 +5,7 @@ import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/ModeToggle";
+import { deleteUser } from "@/actions/delete-user";
 
 export default function SettingsPage() {
   const router = useRouter();
@@ -36,24 +37,29 @@ export default function SettingsPage() {
   };
 
   // Funktion zum Löschen des Kontos
-  // const handleDeleteAccount = async () => {
-  //   const confirmation = confirm("Möchten Sie wirklich Ihr Konto löschen?");
+  const handleDeleteAccount = async () => {
+    const confirmation = confirm("Möchten Sie wirklich Ihr Konto löschen?");
 
-  //   if (!confirmation) return;
+    if (!confirmation) return;
 
-  //   setLoading(true);
+    setLoading(true);
+    try {
+      const user = await supabase.auth.getUser();
+      await supabase.auth.signOut();
+      const deletedUser = await deleteUser(user.data.user?.id!);
 
-  //   const { error } = await supabase.auth.deleteUser();
-
-  //   setLoading(false);
-
-  //   if (error) {
-  //     alert("Fehler beim Löschen des Kontos: " + error.message);
-  //   } else {
-  //     alert("Ihr Konto wurde erfolgreich gelöscht.");
-  //     router.push("/login"); // Zurück zur Login-Seite leiten
-  //   }
-  // };
+      if (!deletedUser) {
+        alert("Fehler beim Löschen des Kontos.");
+      } else {
+        alert("Ihr Konto wurde erfolgreich gelöscht.");
+        router.push("/login"); // Zurück zur Login-Seite leiten
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="container mx-auto p-8">
@@ -98,13 +104,14 @@ export default function SettingsPage() {
           <h2 className="text-2xl font-semibold mb-4 text-center">
             Konto löschen
           </h2>
-          {/* <Button
-            className="w-full bg-red-500"
+          <Button
+            variant={"destructive"}
+            className="w-full"
             onClick={handleDeleteAccount}
             disabled={loading}
           >
             {loading ? "Löschen..." : "Konto löschen"}
-          </Button> */}
+          </Button>
         </div>
       </div>
     </div>
