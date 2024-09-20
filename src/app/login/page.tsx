@@ -40,6 +40,7 @@ export default function AuthenticationPage() {
               <p className="px-8 text-center text-sm text-muted-foreground">
                 Du bist neu hier? Dann{" "}
                 <Link
+                  prefetch={false}
                   href="/sign-up"
                   className="underline underline-offset-4 hover:text-primary"
                 >

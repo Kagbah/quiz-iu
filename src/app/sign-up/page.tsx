@@ -41,6 +41,7 @@ export default function AuthenticationPage() {
               <p className="px-8 text-center text-sm text-muted-foreground">
                 Du hast bereits einen Account? Dann kannst du dich{" "}
                 <Link
+                  prefetch={false}
                   href="/login"
                   className="underline underline-offset-4 hover:text-primary"
                 >

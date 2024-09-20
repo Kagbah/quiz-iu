@@ -38,11 +38,16 @@ export default function SidebarAdmin() {
         </button>
       </div>
 
-      <div className="md:w-14"> 
+      <div className="md:w-14">
         <TooltipProvider>
-          <aside className={`fixed inset-y-0 left-0 max-md:z-30 transition-transform transform ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 z-10 w-14 flex-col border-r bg-background flex max-md:py-4`}>
+          <aside
+            className={`fixed inset-y-0 left-0 max-md:z-30 transition-transform transform ${
+              isOpen ? "translate-x-0" : "-translate-x-full"
+            } md:translate-x-0 z-10 w-14 flex-col border-r bg-background flex max-md:py-4`}
+          >
             <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
               <Link
+                prefetch={false}
                 href="/app/play"
                 className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
               >
@@ -50,7 +55,11 @@ export default function SidebarAdmin() {
               </Link>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Link href="/app/dashboard" className="sidebarTooltipLink">
+                  <Link
+                    prefetch={false}
+                    href="/app/dashboard"
+                    className="sidebarTooltipLink"
+                  >
                     <Home className="h-5 w-5" />
                     <span className="sr-only">Dashboard</span>
                   </Link>
@@ -60,6 +69,7 @@ export default function SidebarAdmin() {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Link
+                    prefetch={false}
                     href="/app/fragenkatalog"
                     className="sidebarTooltipLink"
                   >
@@ -71,7 +81,11 @@ export default function SidebarAdmin() {
               </Tooltip>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Link href="/app/quiz_manager" className="sidebarTooltipLink">
+                  <Link
+                    prefetch={false}
+                    href="/app/quiz_manager"
+                    className="sidebarTooltipLink"
+                  >
                     <Plus className="h-5 w-5" />
                     <span className="sr-only">Quiz Erstellen</span>
                   </Link>
@@ -82,7 +96,11 @@ export default function SidebarAdmin() {
             <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Link href="/app/settings" className="sidebarTooltipLink">
+                  <Link
+                    prefetch={false}
+                    href="/app/settings"
+                    className="sidebarTooltipLink"
+                  >
                     <Settings className="h-5 w-5" />
                     <span className="sr-only">Einstellungen</span>
                   </Link>
@@ -91,7 +109,11 @@ export default function SidebarAdmin() {
               </Tooltip>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Link href="/app/profile" className="sidebarTooltipLink">
+                  <Link
+                    prefetch={false}
+                    href="/app/profile"
+                    className="sidebarTooltipLink"
+                  >
                     <User className="h-5 w-5" />
                     <span className="sr-only">Profil</span>
                   </Link>
@@ -101,7 +123,12 @@ export default function SidebarAdmin() {
 
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Link href="/logout" replace className="sidebarTooltipLink">
+                  <Link
+                    prefetch={false}
+                    href="/logout"
+                    replace
+                    className="sidebarTooltipLink"
+                  >
                     <LogOut className="h-5 w-5" />
                     <span className="sr-only">Ausloggen</span>
                   </Link>
@@ -112,8 +139,8 @@ export default function SidebarAdmin() {
           </aside>
         </TooltipProvider>
       </div>
-           {/* Overlay for mobile when sidebar is open */}
-           {isOpen && (
+      {/* Overlay for mobile when sidebar is open */}
+      {isOpen && (
         <div
           onClick={toggleSidebar}
           className="fixed inset-0 z-20 bg-black bg-opacity-50 sm:hidden"

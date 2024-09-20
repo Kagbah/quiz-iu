@@ -26,6 +26,7 @@ export default async function AuthButton() {
     <div className="flex items-center justify-between gap-4 w-full">
       <Logo></Logo>
       <Link
+        prefetch={false}
         href="/login"
         className="py-2 px-3 flex rounded-md no-underline bg-btn-background hover:bg-btn-background-hover"
       >

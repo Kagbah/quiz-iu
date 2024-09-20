@@ -9,7 +9,7 @@ export default function Header() {
         <p className="font-semibold">Los geht's.</p>
         <p className="text-2xl lg:text-3xl">Viel Spaß beim Quizzen!</p>
       </div>
-      <Link href="/login" className="border-gradient">
+      <Link prefetch={false} href="/login" className="border-gradient">
         <Button className="p-6">
           <p className="font-bold">Anmelden und loslegen</p>
         </Button>

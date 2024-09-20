@@ -42,7 +42,7 @@ export default async function ProtectedPage() {
           >
             {/* Kategoriename als anklickbarer Button */}
             <h2 className="text-2xl font-semibold mb-4 text-cataloge">
-              <Link href={`/app/fragenkatalog/${category.id}`}>
+              <Link prefetch={false} href={`/app/fragenkatalog/${category.id}`}>
                 {category.name}
               </Link>
             </h2>
@@ -51,7 +51,7 @@ export default async function ProtectedPage() {
             </p>
 
             {/* Details Button */}
-            <Link href={`/app/fragenkatalog/${category.id}`}>
+            <Link prefetch={false} href={`/app/fragenkatalog/${category.id}`}>
               <Button variant={"default"} className="w-full">
                 Mehr erfahren
               </Button>

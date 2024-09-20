@@ -29,7 +29,7 @@ export default async function ProtectedPage() {
     <div className="flex flex-col items-center gap-8 justify-between p-8 h-full">
       <h1 className="text-xl md:text-3xl font-bold text-center">Dashboard</h1>
       <div className="border-gradient">
-        <Link href="/app/play">
+        <Link prefetch={false} href="/app/play">
           <Button
             className="px-8 md:px-12 py-6 md:py-8 text-lg font-bold md:font-semibold"
             variant={"default"}
@@ -45,7 +45,11 @@ export default async function ProtectedPage() {
         <div className="flex flex-wrap gap-3 md:gap-6 justify-center">
           {categories?.map((category) => (
             <div key={category.id}>
-              <Link href={`/app/fragenkatalog/${category.id}`} passHref>
+              <Link
+                prefetch={false}
+                href={`/app/fragenkatalog/${category.id}`}
+                passHref
+              >
                 <Button
                   variant="secondary"
                   className="w-full text-secondary-foreground p-3 md:p-6"
