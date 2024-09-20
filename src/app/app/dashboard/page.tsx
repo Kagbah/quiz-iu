@@ -45,7 +45,7 @@ export default async function ProtectedPage() {
         <div className="flex flex-wrap gap-3 md:gap-6 justify-center">
           {categories?.map((category) => (
             <div key={category.id}>
-              <Link href={`/app/categories/${category.id}`} passHref>
+              <Link href={`/app/fragenkatalog/${category.id}`} passHref>
                 <Button
                   variant="secondary"
                   className="w-full text-secondary-foreground p-3 md:p-6"

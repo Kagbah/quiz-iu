@@ -89,7 +89,7 @@ export default function CategoryDetailPage({
 
       <Button
         variant={"default"}
-        onClick={() => router.push("/app/categories")}
+        onClick={() => router.push("/app/fragenkatalog")}
       >
         Zurück zur Übersicht
       </Button>
