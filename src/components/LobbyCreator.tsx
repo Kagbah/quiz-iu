@@ -18,7 +18,7 @@ import {
 export default function LobbyCreator() {
   const [lobbyName, setLobbyName] = useState("");
   const [isPrivate, setIsPrivate] = useState(false);
-  const [mode, setMode] = useState<"ffa" | "team">("ffa");
+  const [mode, setMode] = useState<"vs" | "team">("vs");
   const supabase = createClient();
   const router = useRouter();
 
@@ -41,7 +41,7 @@ export default function LobbyCreator() {
         private: isPrivate,
         created_by: user.id,
         mode,
-        maxPlayers: mode === "ffa" ? 4 : 2,
+        maxPlayers: mode === "vs" ? 4 : 2,
       })
       .select("*")
       .single();
@@ -77,12 +77,12 @@ export default function LobbyCreator() {
         />
         <Label htmlFor="private">Private</Label>
       </div>
-      <Select onValueChange={(value) => setMode(value as "ffa" | "team")}>
+      <Select onValueChange={(value) => setMode(value as "vs" | "team")}>
         <SelectTrigger>
           <SelectValue placeholder="Select game mode" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="ffa">Free-for-All</SelectItem>
+          <SelectItem value="vs">Free-for-All</SelectItem>
           <SelectItem value="team">Team</SelectItem>
         </SelectContent>
       </Select>

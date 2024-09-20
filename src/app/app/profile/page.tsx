@@ -46,30 +46,30 @@ export default function ProfilePage() {
         Dein Profil
       </h1>
 
-      <div className="bg-white shadow-lg rounded-lg p-6 max-w-xl mx-auto">
-        <h2 className="text-xl font-semibold mb-4 text-secondary-foreground">
+      <div className="bg-primary rounded-lg p-6 max-w-xl mx-auto">
+        <h2 className="text-xl font-semibold mb-4 text-primary-foreground">
           Benutzerinformationen
         </h2>
 
         <div className="space-y-4">
           <div className="flex justify-between">
-            <span className="font-semibold text-secondary-foreground">ID:</span>
+            <span className="font-semibold text-primary-foreground">ID:</span>
             <span className="text-muted-foreground">{user.id}</span>
           </div>
           <div className="flex justify-between">
-            <span className="font-semibold text-secondary-foreground">
+            <span className="font-semibold text-primary-foreground">
               E-Mail:
             </span>
             <span className="text-muted-foreground">{user.email}</span>
           </div>
           <div className="flex justify-between">
-            <span className="font-semibold text-secondary-foreground">
+            <span className="font-semibold text-primary-foreground">
               Rolle:
             </span>
             <span className="text-muted-foreground">{user.role}</span>
           </div>
           <div className="flex justify-between">
-            <span className="font-semibold text-secondary-foreground">
+            <span className="font-semibold text-primary-foreground">
               Anmeldemethode:
             </span>
             <span className="text-muted-foreground">
@@ -77,7 +77,7 @@ export default function ProfilePage() {
             </span>
           </div>
           <div className="flex justify-between">
-            <span className="font-semibold text-secondary-foreground">
+            <span className="font-semibold text-primary-foreground">
               Letzte Anmeldung:
             </span>
             <span className="text-muted-foreground">
@@ -85,7 +85,7 @@ export default function ProfilePage() {
             </span>
           </div>
           <div className="flex justify-between">
-            <span className="font-semibold text-secondary-foreground">
+            <span className="font-semibold text-primary-foreground">
               Erstellungsdatum:
             </span>
             <span className="text-muted-foreground">
@@ -94,15 +94,15 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        <div className="mt-6 flex justify-between">
+        <div className="mt-6 flex justify-between gap-4">
           <Button
-            className="bg-blue-500 text-white w-full mr-4"
+            variant={"secondary"}
             onClick={() => router.push("/app/settings")}
           >
             Einstellungen
           </Button>
           <Button
-            className="bg-red-500 text-white w-full"
+            variant={"destructive"}
             onClick={() => router.push("/logout")}
           >
             Abmelden

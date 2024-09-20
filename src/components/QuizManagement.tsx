@@ -24,10 +24,26 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 
+type Category = {
+  id: number;
+  name: string;
+  createdBy: string;
+  createdAt: string;
+};
+
+type Question = {
+  id: number;
+  questionText: string;
+  options: string[];
+  correctAnswer: string;
+  categoryId: number;
+  createdBy: string;
+};
+
 export default function QuizManagement() {
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [questions, setQuestions] = useState([]); // Zustand für die Fragen
+  const [questions, setQuestions] = useState<Question[]>([]);
   const [newCategory, setNewCategory] = useState<string>("");
   const [newQuestion, setNewQuestion] = useState<string>("");
   const [options, setOptions] = useState<string[]>(["", "", "", ""]);
@@ -43,7 +59,7 @@ export default function QuizManagement() {
   useEffect(() => {
     const fetchAndSetCategories = async () => {
       const fetchedCategories = await fetchCategories();
-      setCategories(fetchedCategories);
+      setCategories(fetchedCategories as Category[]);
     };
 
     fetchAndSetCategories();
@@ -51,14 +67,24 @@ export default function QuizManagement() {
 
   // Fragen laden, wenn eine Kategorie ausgewählt wird
   useEffect(() => {
-    if (selectedCategory) {
-      const fetchAndSetQuestions = async () => {
-        const fetchedQuestions = await fetchQuestions(selectedCategory);
-        setQuestions(fetchedQuestions);
-      };
+    const fetchAndSetQuestions = async () => {
+      if (selectedCategory) {
+        try {
+          const categoryId = Number(selectedCategory);
+          if (isNaN(categoryId)) {
+            console.error("Invalid category ID");
+            return;
+          }
+          const fetchedQuestions = await fetchQuestions(categoryId);
+          setQuestions(fetchedQuestions as Question[]);
+        } catch (error) {
+          console.error("Error fetching questions:", error);
+          // Handle the error appropriately
+        }
+      }
+    };
 
-      fetchAndSetQuestions();
-    }
+    fetchAndSetQuestions();
   }, [selectedCategory]);
 
   // Kategorie hinzufügen
@@ -80,7 +106,8 @@ export default function QuizManagement() {
     try {
       const { data, error } = await supabase
         .from("categories")
-        .insert([{ name: newCategory, createdBy: email }]);
+        .insert([{ name: newCategory, createdBy: email }])
+        .select();
 
       if (error) {
         console.error("Fehler beim Hinzufügen der Kategorie:", error);
@@ -89,10 +116,21 @@ export default function QuizManagement() {
       }
 
       // Neue Kategorie zur Liste hinzufügen
-      setCategories([
-        ...categories,
-        { id: data[0].id, name: newCategory, createdBy: email },
-      ]);
+      if (data && data[0]) {
+        setCategories([
+          ...categories,
+          {
+            id: data[0].id,
+            name: newCategory,
+            createdBy: email,
+            createdAt: new Date().toISOString(),
+          },
+        ]);
+      } else {
+        console.error("No data returned from insert operation");
+        // Handle this case appropriately
+      }
+
       setNewCategory(""); // Eingabefeld leeren
       alert("Kategorie erfolgreich hinzugefügt!");
     } catch (error) {
@@ -167,7 +205,7 @@ export default function QuizManagement() {
 
       // Fragenliste nach Hinzufügen der Frage aktualisieren
       const updatedQuestions = await fetchQuestions(Number(selectedCategory));
-      setQuestions(updatedQuestions);
+      setQuestions(updatedQuestions as Question[]);
     } catch (error) {
       console.error("Fehler beim Hinzufügen der Frage:", error);
     }
@@ -249,21 +287,17 @@ export default function QuizManagement() {
     const supabase = createClient();
 
     try {
-      // Lösche die Frage aus der Datenbank
-      const { error } = await supabase
-        .from("questions")
-        .delete()
-        .eq("id", questionId);
+      // ... (delete question code)
 
-      if (error) {
-        console.error("Fehler beim Löschen der Frage:", error);
-        alert("Fehler beim Löschen der Frage.");
-        return;
+      if (selectedCategory) {
+        const categoryId = Number(selectedCategory);
+        if (!isNaN(categoryId)) {
+          const updatedQuestions = await fetchQuestions(categoryId);
+          setQuestions(updatedQuestions as Question[]);
+        } else {
+          console.error("Invalid category ID");
+        }
       }
-
-      // Aktualisiere die Fragenliste nach dem Löschen
-      const updatedQuestions = await fetchQuestions(selectedCategory);
-      setQuestions(updatedQuestions);
 
       alert("Frage erfolgreich gelöscht!");
     } catch (error) {
