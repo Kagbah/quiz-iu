@@ -4,6 +4,7 @@ import { useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { ModeToggle } from "@/components/ModeToggle";
 
 export default function SettingsPage() {
   const router = useRouter();
@@ -56,11 +57,18 @@ export default function SettingsPage() {
 
   return (
     <div className="container mx-auto p-8">
-      <h1 className="text-4xl font-bold mb-10 text-center text-gray-800">
-        Einstellungen
-      </h1>
+      <h1 className="text-3xl font-bold mb-10 text-center">Einstellungen</h1>
 
       <div className="flex flex-col items-center space-y-8">
+        <div className="flex flex-col justify-center">
+          <h2 className="text-2xl font-semibold mb-4 text-center">
+            Erscheinungsbild ändern
+          </h2>
+          <div className="mx-auto">
+            <ModeToggle></ModeToggle>
+          </div>
+        </div>
+
         {/* Passwort ändern */}
         <div className="w-full max-w-lg">
           <h2 className="text-2xl font-semibold mb-4 text-center">
