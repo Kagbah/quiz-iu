@@ -84,7 +84,8 @@ export default function SettingsPage() {
             className="w-full p-2 border border-gray-300 rounded mb-4"
           />
           <Button
-            className="w-full bg-blue-500"
+            variant={"default"}
+            className="w-full"
             onClick={handleChangePassword}
             disabled={loading}
           >
